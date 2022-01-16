@@ -6,7 +6,7 @@ import com.ros.stjohnshhunt.data.ListResidentialResponse
 fun ListResidentialResponse.toHouses(): List<House>? {
     return Results?.map { result ->
         House(
-            _id = result.Id.toLong(),
+            _id = result.Id,
             desc = result.PublicRemarks,
             price = result.Property?.Price,
             address = result.Property?.Address?.AddressText,

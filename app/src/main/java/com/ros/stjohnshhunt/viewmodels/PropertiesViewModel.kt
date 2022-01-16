@@ -1,9 +1,6 @@
 package com.ros.stjohnshhunt.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.ros.stjohnshhunt.data.House
 import com.ros.stjohnshhunt.data.RealtyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,9 +15,7 @@ class PropertiesViewModel @Inject constructor(
     private val repository: RealtyRepository
 ) : ViewModel() {
 
-    private val _houses = MutableLiveData<List<House>>()
-    val houses: LiveData<List<House>>
-        get() = _houses
+    val houses: LiveData<List<House>> = repository.getHouses().asLiveData()
 
     init {
         refreshProperties()
@@ -33,9 +28,7 @@ class PropertiesViewModel @Inject constructor(
                 bathRange = "1-2",
                 minPrice = "180000",
                 maxPrice = "400000"
-            )?.let {
-                _houses.postValue(it)
-            }
+            )
         }
     }
 }

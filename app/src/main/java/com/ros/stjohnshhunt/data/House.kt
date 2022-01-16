@@ -1,9 +1,13 @@
 package com.ros.stjohnshhunt.data
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-//@Entity(tableName = "houses")
+
+@Entity(tableName = "houses")
 data class House(
-    val _id: Long,
+    @PrimaryKey @ColumnInfo(name = "id") val _id: String,
     val desc: String?,
     val price: String?,
     val address: String?,
@@ -15,7 +19,3 @@ data class House(
     val timeOnRealtor: String?,
     val houseImageUrl: String?
 )
-
-/*
-
- */
