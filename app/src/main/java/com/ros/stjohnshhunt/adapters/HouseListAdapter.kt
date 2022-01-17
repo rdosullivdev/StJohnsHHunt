@@ -3,11 +3,13 @@ package com.ros.stjohnshhunt.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ros.stjohnshhunt.data.House
 import com.ros.stjohnshhunt.databinding.ListItemPropertyBinding
+import com.ros.stjohnshhunt.ui.properties.PropertyListFragmentDirections
 
 class HouseListAdapter: ListAdapter<House, RecyclerView.ViewHolder>(HouseDiffCallback()) {
 
@@ -38,7 +40,9 @@ class HouseListAdapter: ListAdapter<House, RecyclerView.ViewHolder>(HouseDiffCal
         }
 
         private fun navigateToPlant(house: House, view: View) {
-            //todo
+            val direction = PropertyListFragmentDirections
+                .actionPropertyListFragmentToHouseDetailFragment(house.houseId)
+            view.findNavController().navigate(direction)
         }
 
         fun bind(item: House) {
@@ -53,7 +57,7 @@ class HouseListAdapter: ListAdapter<House, RecyclerView.ViewHolder>(HouseDiffCal
 private class HouseDiffCallback : DiffUtil.ItemCallback<House>() {
 
     override fun areItemsTheSame(oldItem: House, newItem: House): Boolean {
-        return oldItem._id == newItem._id
+        return oldItem.houseId == newItem.houseId
     }
 
     override fun areContentsTheSame(oldItem: House, newItem: House): Boolean {

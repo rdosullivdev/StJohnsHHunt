@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">StJohnsHHunt</string>
+    <string name="app_name">SJ-HHunt</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="house_details_title">House Details</string>
 </resources>

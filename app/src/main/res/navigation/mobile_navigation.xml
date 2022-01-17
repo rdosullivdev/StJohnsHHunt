@@ -3,13 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/property_list_fragment">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/property_list_fragment"
         android:name="com.ros.stjohnshhunt.ui.properties.PropertyListFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_property_list" />
+        android:label="@string/title_home">
+
+        <action
+            android:id="@+id/action_property_list_fragment_to_house_detail_fragment"
+            app:destination="@id/house_detail_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/house_detail_fragment"
+        android:name="com.ros.stjohnshhunt.ui.properties.PropertyDetailsFragment"
+        android:label="@string/house_details_title"
+        tools:layout="@layout/fragment_property_detail">
+        <argument
+            android:name="houseId"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"

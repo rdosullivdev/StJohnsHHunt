@@ -32,4 +32,6 @@ class RealtyRepository @Inject constructor(
     }
 
     fun getHouses() = houseDao.getHouses()
+
+    fun getHouse(houseId: String) = houseDao.getHouse(houseId)
 }
