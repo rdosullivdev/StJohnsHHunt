@@ -8,46 +8,174 @@
         <variable
             name="viewModel"
             type="com.ros.stjohnshhunt.viewmodels.PropertyDetailsViewModel"/>
+        <variable
+            name="addressCallback"
+            type="com.ros.stjohnshhunt.ui.properties.PropertyDetailsFragment.AddressCallback" />
+        <variable
+            name="detailsCallback"
+            type="com.ros.stjohnshhunt.ui.properties.PropertyDetailsFragment.DetailsCallback" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/plant_detail_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/fab_bottom_padding">
 
-        <ImageView
-            android:id="@+id/plant_item_image"
-            android:layout_width="@dimen/house_item_image_w_h"
-            android:layout_height="@dimen/house_item_image_w_h"
-            android:scaleType="centerCrop"
-            app:imageFromUrl="@{viewModel.house.houseImageUrl}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/plant_item_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:text="@{viewModel.house.address}"
-            android:textAppearance="?attr/textAppearanceListItem"
-            app:layout_constraintStart_toEndOf="@id/plant_item_image"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="18 Saint Michaels Avenue, St John's, Newfoundland"/>
+            <ImageView
+                android:id="@+id/house_detail_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/house_detail_image_h"
+                android:scaleType="centerCrop"
+                app:imageFromUrl="@{viewModel.house.houseImageUrl}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-            android:id="@+id/plant_item_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:text="@{viewModel.house.price}"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:gravity="center_horizontal"
-            app:layout_constraintStart_toEndOf="@id/plant_item_image"
-            app:layout_constraintTop_toBottomOf="@id/plant_item_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="$123,456"/>
+            <ImageButton
+                android:layout_width="@dimen/house_detail_btn_w_h"
+                android:layout_height="@dimen/house_detail_btn_w_h"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/house_detail_image"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{() -> detailsCallback.load(viewModel.house)}"
+                android:src="@drawable/ic_browser"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageButton
+                android:layout_width="@dimen/house_detail_btn_w_h"
+                android:layout_height="@dimen/house_detail_btn_w_h"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/house_detail_image"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{() -> addressCallback.load(viewModel.house)}"
+                android:src="@drawable/ic_map"/>
+
+            <TextView
+                android:id="@+id/house_detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:text="@{viewModel.house.address}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/house_detail_image"
+                tools:text="66 Prescott Street|St. John's, Newfoundland &amp; Labrador A1C3S8"/>
+
+            <TextView
+                android:id="@+id/house_detail_bed_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text='@{" x " + viewModel.house.noOfBedrooms}'
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/house_detail_title"
+                android:drawableStart="@drawable/ic_bedroom"
+                tools:text=" x 2"/>
+
+            <TextView
+                android:id="@+id/house_detail_bathroom_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text='@{" x " + viewModel.house.noOfBathrooms}'
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toEndOf="@id/house_detail_bed_count"
+                app:layout_constraintTop_toBottomOf="@id/house_detail_title"
+                android:drawableStart="@drawable/ic_bathroom"
+                tools:text=" x 2"/>
+
+            <TextView
+                android:id="@+id/house_detail_stories_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text='@{" x " + viewModel.house.noOfStories}'
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toEndOf="@id/house_detail_bathroom_count"
+                app:layout_constraintTop_toBottomOf="@id/house_detail_title"
+                android:drawableStart="@drawable/ic_stories"
+                tools:text=" x 2"/>
+
+            <TextView
+                android:id="@+id/house_detail_interior_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text="@{viewModel.house.interiorSize}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toEndOf="@id/house_detail_stories_count"
+                app:layout_constraintTop_toBottomOf="@id/house_detail_title"
+                tools:text="1776 sqft"/>
+
+            <TextView
+                android:id="@+id/house_detail_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text="@{viewModel.house.price}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:gravity="center_horizontal"
+                app:layout_constraintStart_toEndOf="@id/house_detail_interior_size"
+                app:layout_constraintTop_toBottomOf="@id/house_detail_title"
+                tools:text="$123,456"/>
+
+            <View
+                android:id="@+id/house_detail_divider_1"
+                style="@style/DividerStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/house_detail_bed_count"/>
+
+            <TextView
+                android:id="@+id/house_detail_list_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text='@{"Listed " + viewModel.house.daysOnRealtor}'
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:gravity="center_horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/house_detail_divider_1"
+                tools:text="Listed: 12:45pm 5/14/22"/>
+
+            <View
+                android:id="@+id/house_detail_divider_2"
+                style="@style/DividerStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/house_detail_list_time"/>
+
+            <TextView
+                android:id="@+id/house_detail_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:text="@{viewModel.house.desc}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/house_detail_divider_2"
+                tools:text="Do you want an ocean view at an affordable price. Well check this one out. It comes with full  landscaped(hydro seeding), double paved driveway and a pressure treated deck. Close to all amenities with easy access to cbs bypass highway."/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

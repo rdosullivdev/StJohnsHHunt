@@ -1,13 +1,16 @@
 package com.ros.stjohnshhunt.data
 
+import android.content.Context
 import android.util.Log
 import com.ros.stjohnshhunt.api.RealtyService
 import com.ros.stjohnshhunt.db.AppDatabase
 import com.ros.stjohnshhunt.db.HouseDao
 import com.ros.stjohnshhunt.extensions.toHouses
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class RealtyRepository @Inject constructor(
+    @ApplicationContext private val appContext: Context,
     private val service: RealtyService,
     private val houseDao: HouseDao
 ) {
@@ -19,13 +22,13 @@ class RealtyRepository @Inject constructor(
         maxPrice: String
     ) {
         try {
-            val houses = service.listResidential(
+            service.listResidential(
                 curPage = "1",
                 bedRange = bedRange,
                 bathRange = bathRange,
                 minPrice = minPrice,
                 maxPrice = maxPrice)
-            .toHouses()?.let { houseDao.insertAll(it) }
+            .toHouses(appContext)?.let { houseDao.insertAll(it) }
         } catch (exception: Exception) {
             Log.d(RealtyRepository::class.simpleName, exception.localizedMessage)
         }

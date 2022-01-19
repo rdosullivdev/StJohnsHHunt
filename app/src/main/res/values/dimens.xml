@@ -26,4 +26,6 @@
     <dimen name="gallery_header_margin">72dp</dimen>
 
     <dimen name="house_item_image_w_h">128dp</dimen>
+    <dimen name="house_detail_image_h">256dp</dimen>
+    <dimen name="house_detail_btn_w_h">52dp</dimen>
 </resources>

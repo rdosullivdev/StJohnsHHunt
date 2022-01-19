@@ -1,7 +1,7 @@
 package com.ros.stjohnshhunt.api
 
 import android.content.Context
-import com.ros.stjohnshhunt.BuildConfig
+import com.ros.stjohnshhunt.MOCK_ON
 import com.ros.stjohnshhunt.api.interceptors.MockInterceptor
 import com.ros.stjohnshhunt.data.ListResidentialResponse
 import okhttp3.Interceptor
@@ -74,7 +74,7 @@ queryString <- list(
 
             val client = OkHttpClient.Builder().apply {
                 addInterceptor(logger)
-                if (BuildConfig.DEBUG) {
+                if (MOCK_ON) {
                     addInterceptor(MockInterceptor(appContext))
                 } else {
                     addInterceptor(

@@ -22,6 +22,7 @@ data class PropertyDetails(
     val Property: Property?,
     val Land: Land?,
     val PostalCode: String?,
+    val RelativeDetailsURL: String?,
     val InsertedDateUTC: Long?,
     val TimeOnRealtor: String?)
 

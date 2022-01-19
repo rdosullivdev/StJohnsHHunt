@@ -1,0 +1,16 @@
+Todo:
+
+DataLayer:
+-Allow for: "TimeOnRealtor": "6 hours ago"
+-Sort out days listed count. Will need to change Dao to allow for update OnConflictStrategy to retain correct
+count.
+
+NotificationSystem:
+-Need to add in a daily worker to ping the API and sync the data & trigger a notification if any new
+properties are listed.
+
+PropertyListFragment:
+-Add in display for bed & bath count to item
+
+PropertyDetailsFragment:
+-Add land size detail

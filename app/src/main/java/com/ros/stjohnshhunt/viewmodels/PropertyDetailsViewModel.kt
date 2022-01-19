@@ -19,9 +19,6 @@ class PropertyDetailsViewModel @Inject constructor(
     val houseId: String = savedStateHandle.get<String>(HOUSE_ID_SAVED_STATE_KEY)!!
     val house = repository.getHouse(houseId).asLiveData()
 
-    init {
-    }
-
     companion object {
         private const val HOUSE_ID_SAVED_STATE_KEY = "houseId"
     }

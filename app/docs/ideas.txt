@@ -1,0 +1,9 @@
+Ideas
+
+-Main screen (or one of main screens) should be list of searches; areas etc.
+that way the list of properties can be very specific to an area, not just the one area.
+eg. St John's Downtown, Cape Broyle.
+
+-Work on data mining project at same time to analyse the price changes over the last year etc.
+Could include a NN that we embed in the app that can tell the user whether a property is a decent
+price.
