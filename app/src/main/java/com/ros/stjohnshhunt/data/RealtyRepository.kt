@@ -20,7 +20,7 @@ class RealtyRepository @Inject constructor(
         bathRange: String,
         minPrice: String,
         maxPrice: String
-    ) {
+    ): List<House>? {
         try {
             service.listResidential(
                 curPage = "1",
@@ -28,10 +28,14 @@ class RealtyRepository @Inject constructor(
                 bathRange = bathRange,
                 minPrice = minPrice,
                 maxPrice = maxPrice)
-            .toHouses(appContext)?.let { houseDao.insertAll(it) }
+            .toHouses(appContext)?.let {
+                houseDao.insertAll(it)
+                return it
+            }
         } catch (exception: Exception) {
             Log.d(RealtyRepository::class.simpleName, exception.localizedMessage)
         }
+        return null
     }
 
     fun getHouses() = houseDao.getHouses()

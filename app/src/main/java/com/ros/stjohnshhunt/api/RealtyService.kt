@@ -36,33 +36,6 @@ interface RealtyService {
     //TODO: Move some static query params to interceptor
     ): ListResidentialResponse
 
-    /*
-    {
-   "Location":"St. John's, NL, Canada", "Longitude":"-52.7125768", "Latitude":"47.5615096", "Height":0.3041909000000018"Width":0.4203329999999852"InternalResult":"False""Viewport":{
-      "NorthEast":{
-         "Latitude":"47.6340069""Longitude":"-52.6175349"
-      }"SouthWest":{
-         "Latitude":"47.329816""Longitude":"-53.0378679"
-      }
-   }
-
-queryString <- list(
-  LatitudeMax = "81.14747595814636",
-  LatitudeMin = "-22.26872153207163",
-  LongitudeMax = "-10.267941690981388",
-  LongitudeMin = "-136.83037765324116",
-  CurrentPage = "1",
-  RecordsPerPage = "10",
-  SortOrder = "A",
-  SortBy = "1",
-  CultureId = "1",
-  NumberOfDays = "0",
-  BedRange = "0-0",
-  BathRange = "0-0"
-  RentMin = "0",
-)
-     */
-
     companion object {
         private const val BASE_URL = "https://realty-in-ca1.p.rapidapi.com/"
 

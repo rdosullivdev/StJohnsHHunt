@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_normal"
                 android:layout_marginStart="@dimen/margin_normal"
-                android:text='@{"Listed " + viewModel.house.daysOnRealtor}'
+                android:text='@{"Listed " + viewModel.house.getReadableTimestamp()}'
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:gravity="center_horizontal"
                 app:layout_constraintStart_toStartOf="parent"
