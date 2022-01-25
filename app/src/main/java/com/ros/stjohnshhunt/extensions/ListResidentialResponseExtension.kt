@@ -7,12 +7,12 @@ import java.time.Instant
 import java.util.*
 
 fun ListResidentialResponse.toHouses(context: Context): List<House>? {
-    return Results?.map { result ->
+    return Results?.sortedBy { it.InsertedDateUTC }?.map { result ->
         House(
             houseId = result.Id,
             desc = result.PublicRemarks,
             price = result.Property?.Price,
-            address = result.Property?.Address?.AddressText,
+            address = result.Property?.Address?.AddressText?.replace("|", ", "),
             latLng = "${result.Property?.Address?.Latitude},${result.Property?.Address?.Longitude}",
             noOfBathrooms = result.Building?.BathroomTotal,
             noOfBedrooms = result.Building?.Bedrooms,
