@@ -34,14 +34,5 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_notifications))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        /*val request = OneTimeWorkRequestBuilder<SyncHousesWorker>()
-            .setInitialDelay(10, TimeUnit.SECONDS)
-            .build()*/
-
-//        val operation = WorkManager.getInstance(this)
-//            .enqueueUniqueWork("MyJob", ExistingWorkPolicy.REPLACE, request)
-//
-//        Log.d("MainActivity", "operation $operation")
     }
 }

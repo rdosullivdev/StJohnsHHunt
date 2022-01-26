@@ -1,16 +1,23 @@
 Todo:
 
 DataLayer:
--Allow for: "TimeOnRealtor": "6 hours ago"
--Sort out days listed count. Will need to change Dao to allow for update OnConflictStrategy to retain correct
-count.
-
-NotificationSystem:
--Need to add in a daily worker to ping the API and sync the data & trigger a notification if any new
-properties are listed.
 
 PropertyListFragment:
 -Add in display for bed & bath count to item
 
 PropertyDetailsFragment:
 -Add land size detail
+
+SearchSettings dialog:
+-Hooked to SharedPreferences
+-Parsed by RealtyRepository
+
+SearchesList:
+-Allows the app to run searches for a number of different areas with different configurations
+
+Config fields:
+    Center Longitude Latitude & diameter
+    BedRange ("2-3")
+    BathRange ("1-2")
+    PriceMin ("180000")
+    PriceMax ("400000")

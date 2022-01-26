@@ -28,4 +28,6 @@
     <dimen name="house_item_image_w_h">128dp</dimen>
     <dimen name="house_detail_image_h">256dp</dimen>
     <dimen name="house_detail_btn_w_h">52dp</dimen>
+
+    <dimen name="search_price_input_w">100dp</dimen>
 </resources>

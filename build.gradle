@@ -37,6 +37,8 @@ buildscript {
         uiAutomatorVersion = '2.2.0'
         viewPagerVersion = '1.0.0'
         workVersion = '2.7.1'
+        hiltWorkVersion = '1.0.0'
+        timberVersion = '5.0.1'
     }
 
     repositories {

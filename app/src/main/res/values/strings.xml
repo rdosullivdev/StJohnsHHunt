@@ -4,4 +4,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="house_details_title">House Details</string>
+    <string name="search_creation_title">Property Search</string>
+    <string name="search_creation_cta">Search!</string>
 </resources>

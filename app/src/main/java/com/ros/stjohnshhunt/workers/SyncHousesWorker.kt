@@ -20,6 +20,7 @@ import android.app.NotificationManager
 
 import android.app.NotificationChannel
 import android.os.Build
+import timber.log.Timber
 
 @HiltWorker
 class SyncHousesWorker @AssistedInject constructor(
@@ -29,13 +30,14 @@ class SyncHousesWorker @AssistedInject constructor(
 ): CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+        Timber.d("doWork!")
         try {
             setForeground(getForegroundInfo())
         } catch (e: Exception) {
-            Log.e("SyncHousesWorker", "setForeground Exception", e)
+            Timber.e( "setForeground Exception", e)
         }
 
-
+        Timber.d("doWork - repository.getSearchResidential")
         val latestHouses = repository.getSearchResidential(
             bedRange = "2-3",
             bathRange = "1-2",
@@ -48,6 +50,7 @@ class SyncHousesWorker @AssistedInject constructor(
         }
 
         val newListingsCount = recentListings?.size ?: 0
+        Timber.d("doWork - newListingsCount: $newListingsCount")
         val builder = NotificationCompat.Builder(appContext, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_bedroom)
             .setContentTitle("SyncHousesWorker")
@@ -60,6 +63,7 @@ class SyncHousesWorker @AssistedInject constructor(
             notify(NOTIFICATION_ID + 1, builder.build())
         }
 
+        Timber.d("doWork - Result.success()")
         Result.success()
     }
 
