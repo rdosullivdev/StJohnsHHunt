@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import androidx.work.*
 import com.ros.stjohnshhunt.REFRESH_INTERVAL_HOURS
+import com.ros.stjohnshhunt.REFRESH_INTERVAL_MINS
 import com.ros.stjohnshhunt.data.House
 import com.ros.stjohnshhunt.data.RealtyRepository
 import com.ros.stjohnshhunt.workers.SyncHousesWorker
@@ -49,8 +50,8 @@ class PropertiesViewModel @Inject constructor(
         val periodicRefreshRequest = PeriodicWorkRequest.Builder(
             SyncHousesWorker::class.java,
             REFRESH_INTERVAL_HOURS.toLong(), TimeUnit.HOURS,
-            2, TimeUnit.MINUTES)
-            .setInitialDelay(45, TimeUnit.MINUTES)
+            55, TimeUnit.MINUTES)
+            .setInitialDelay(5, TimeUnit.MINUTES)
             .build()
 
         val operation = WorkManager.getInstance(appContext).enqueueUniquePeriodicWork(

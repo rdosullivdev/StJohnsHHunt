@@ -7,6 +7,7 @@ import com.ros.stjohnshhunt.REFRESH_INTERVAL_HOURS
 import com.ros.stjohnshhunt.api.RealtyService
 import com.ros.stjohnshhunt.db.AppDatabase
 import com.ros.stjohnshhunt.db.HouseDao
+import com.ros.stjohnshhunt.db.SearchConfigDao
 import com.ros.stjohnshhunt.extensions.toHouses
 import com.ros.stjohnshhunt.viewmodels.PropertiesViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -18,8 +19,15 @@ class RealtyRepository @Inject constructor(
     @ApplicationContext private val appContext: Context,
     private val sharedPreferences: SharedPreferences,
     private val service: RealtyService,
-    private val houseDao: HouseDao
+    private val houseDao: HouseDao,
+    private val searchDao: SearchConfigDao
 ) {
+
+    fun getHouses() = houseDao.getHouses()
+
+    fun getHouse(houseId: String) = houseDao.getHouse(houseId)
+
+    fun getSearches() = searchDao.getSearches()
 
     suspend fun getSearchResidential(
         bedRange: String,
@@ -55,9 +63,9 @@ class RealtyRepository @Inject constructor(
         return null
     }
 
-    fun getHouses() = houseDao.getHouses()
-
-    fun getHouse(houseId: String) = houseDao.getHouse(houseId)
+    suspend fun saveSearch(searchConfig: SearchConfig) {
+        searchDao.insert(searchConfig)
+    }
 
     private fun isRefreshAllowed(): Boolean {
         val lastRefresh: Long = sharedPreferences.getLong(LAST_REFRESH_SAVED_STATE_KEY, -1)

@@ -8,6 +8,10 @@ PropertyListFragment:
 PropertyDetailsFragment:
 -Add land size detail
 
+DevFragment:
+-Show history of SyncHousesWorker
+
+
 SearchSettings dialog:
 -Hooked to SharedPreferences
 -Parsed by RealtyRepository

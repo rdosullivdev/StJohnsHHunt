@@ -2,8 +2,17 @@
     <string name="app_name">SJ-HHunt</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dev">Dev Info</string>
+    <string name="title_searches">Searches</string>
+    <string name="title_search_creation">New Search</string>
     <string name="house_details_title">House Details</string>
     <string name="search_creation_title">Property Search</string>
     <string name="search_creation_cta">Search!</string>
+
+    <string name="search_list_empty">No Searches! Add one!</string>
+    <string name="search_name_hint">Enter name for search</string>
+    <string name="search_bedcount_hint">eg. 2-3</string>
+    <string name="search_bathcount_hint">eg. 1-2</string>
+    <string name="search_price_min_hint">eg. 150000</string>
+    <string name="search_price_max_hint">eg. 350000</string>
 </resources>

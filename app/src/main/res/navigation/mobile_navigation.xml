@@ -3,7 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/property_list_fragment">
+    app:startDestination="@+id/search_list_fragment">
+
+    <fragment
+        android:id="@+id/search_list_fragment"
+        android:name="com.ros.stjohnshhunt.ui.searches.SearchesListFragment"
+        android:label="@string/title_home">
+
+        <action
+            android:id="@+id/action_search_list_fragment_to_property_list_fragment"
+            app:destination="@id/property_list_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_search_list_fragment_to_search_creation_fragment"
+            app:destination="@id/navigation_search_creation"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/property_list_fragment"
@@ -31,8 +54,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.ros.stjohnshhunt.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_search_creation"
+        android:name="com.ros.stjohnshhunt.ui.searches.SearchCreationFragment"
+        android:label="@string/title_search_creation"
+        tools:layout="@layout/fragment_search_creation" />
+
+    <fragment
+        android:id="@+id/navigation_dev"
+        android:name="com.ros.stjohnshhunt.ui.dev.DevFragment"
+        android:label="@string/title_dev"
+        tools:layout="@layout/fragment_dev" />
 </navigation>

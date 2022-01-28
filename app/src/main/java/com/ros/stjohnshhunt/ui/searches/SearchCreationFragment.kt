@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.ros.stjohnshhunt.R
 import com.ros.stjohnshhunt.databinding.FragmentSearchCreationBinding
 import com.ros.stjohnshhunt.viewmodels.PropertySearchViewModel
@@ -33,7 +34,14 @@ class SearchCreationFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
 
             searchCta.setOnClickListener {
-
+                propertySearchViewModel.saveSearch(
+                    searchName.text.toString(),
+                    searchBedCount.text.toString(),
+                    searchBathCount.text.toString(),
+                    searchPriceMin.text.toString(),
+                    searchPriceMax.text.toString()
+                )
+                findNavController().navigateUp()
             }
         }
         return binding.root

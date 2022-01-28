@@ -12,37 +12,47 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:padding="@dimen/margin_normal">
 
-        <android.widget.NumberPicker
-            android:id="@+id/search_bed_count_picker"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/search_name"
+            android:layout_width="@dimen/search_input_w"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="Bed Count"/>
+            android:hint="@string/search_name_hint"/>
 
-        <android.widget.NumberPicker
-            android:id="@+id/search_bath_count_picker"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/search_bed_count"
+            android:layout_width="@dimen/search_input_w"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_bed_count_picker"
-            android:text="Bath Count"/>
+            app:layout_constraintTop_toBottomOf="@id/search_name"
+            android:hint="@string/search_bedcount_hint"/>
+
+        <EditText
+            android:id="@+id/search_bath_count"
+            android:layout_width="@dimen/search_input_w"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_bed_count"
+            android:hint="@string/search_bathcount_hint"/>
 
         <EditText
             android:id="@+id/search_price_min"
-            android:layout_width="@dimen/search_price_input_w"
+            android:layout_width="@dimen/search_input_w"
             android:layout_height="wrap_content"
-            android:text="180000"
+            android:hint="@string/search_price_min_hint"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_bath_count_picker"/>
+            app:layout_constraintTop_toBottomOf="@id/search_bath_count"/>
 
         <EditText
             android:id="@+id/search_price_max"
-            android:layout_width="@dimen/search_price_input_w"
+            android:layout_width="@dimen/search_input_w"
             android:layout_height="wrap_content"
-            android:text="400000"
+            android:hint="@string/search_price_max_hint"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_price_min"/>
 

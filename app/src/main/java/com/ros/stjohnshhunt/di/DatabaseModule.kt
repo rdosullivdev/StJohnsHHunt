@@ -3,6 +3,7 @@ package com.ros.stjohnshhunt.di
 import android.content.Context
 import com.ros.stjohnshhunt.db.AppDatabase
 import com.ros.stjohnshhunt.db.HouseDao
+import com.ros.stjohnshhunt.db.SearchConfigDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,5 +24,10 @@ class DatabaseModule {
     @Provides
     fun provideHouseDao(appDatabase: AppDatabase): HouseDao {
         return appDatabase.houseDao()
+    }
+
+    @Provides
+    fun provideSearchConfigDao(appDatabase: AppDatabase): SearchConfigDao {
+        return appDatabase.searchConfigDao()
     }
 }

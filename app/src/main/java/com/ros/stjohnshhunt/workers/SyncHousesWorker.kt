@@ -19,12 +19,18 @@ import kotlinx.coroutines.withContext
 import android.app.NotificationManager
 
 import android.app.NotificationChannel
+import android.content.SharedPreferences
 import android.os.Build
+import com.ros.stjohnshhunt.DATE_FORMAT_1
+import com.ros.stjohnshhunt.extensions.toReadableString
+import com.ros.stjohnshhunt.viewmodels.DevViewModel
 import timber.log.Timber
+import java.util.*
 
 @HiltWorker
 class SyncHousesWorker @AssistedInject constructor(
     private val repository: RealtyRepository,
+    private val sharedPreferences: SharedPreferences,
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters
 ): CoroutineWorker(appContext, workerParams) {
@@ -33,38 +39,43 @@ class SyncHousesWorker @AssistedInject constructor(
         Timber.d("doWork!")
         try {
             setForeground(getForegroundInfo())
+
+            Timber.d("doWork - repository.getSearchResidential")
+            val latestHouses = repository.getSearchResidential(
+                bedRange = "2-3",
+                bathRange = "1-2",
+                minPrice = "180000",
+                maxPrice = "400000"
+            )
+
+            val recentListings = latestHouses?.filter {
+                it.isRecentListing()
+            }
+
+            val newListingsCount = recentListings?.size ?: 0
+            updateLogs(newListingsCount)
+
+            Timber.d("doWork - newListingsCount: $newListingsCount")
+            val builder = NotificationCompat.Builder(appContext, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_bedroom)
+                .setContentTitle("SyncHousesWorker")
+                .setContentText("Recent Listings Count: $newListingsCount")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
+                .setOngoing(false)
+
+            with(NotificationManagerCompat.from(appContext)) {
+                notify(NOTIFICATION_ID + 1, builder.build())
+            }
+
+            Timber.d("doWork - Result.success()")
+
+            Result.success()
         } catch (e: Exception) {
             Timber.e( "setForeground Exception", e)
+            logError(e)
+            Result.failure()
         }
-
-        Timber.d("doWork - repository.getSearchResidential")
-        val latestHouses = repository.getSearchResidential(
-            bedRange = "2-3",
-            bathRange = "1-2",
-            minPrice = "180000",
-            maxPrice = "400000"
-        )
-
-        val recentListings = latestHouses?.filter {
-            it.isRecentListing()
-        }
-
-        val newListingsCount = recentListings?.size ?: 0
-        Timber.d("doWork - newListingsCount: $newListingsCount")
-        val builder = NotificationCompat.Builder(appContext, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_bedroom)
-            .setContentTitle("SyncHousesWorker")
-            .setContentText("Recent Listings Count: $newListingsCount")
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setAutoCancel(true)
-            .setOngoing(false)
-
-        with(NotificationManagerCompat.from(appContext)) {
-            notify(NOTIFICATION_ID + 1, builder.build())
-        }
-
-        Timber.d("doWork - Result.success()")
-        Result.success()
     }
 
     override suspend fun getForegroundInfo(): ForegroundInfo {
@@ -90,6 +101,22 @@ class SyncHousesWorker @AssistedInject constructor(
                 appContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
+    }
+
+    private fun updateLogs(newListingsCount: Int) {
+        val currentLogs = (sharedPreferences.getString(DevViewModel.SYNC_RUNS_STATE_KEY, "") ?: "")
+            .plus("\n Sync ran at " + "${Calendar.getInstance().time.toReadableString(DATE_FORMAT_1)}, " +
+                    "newListingsCount: $newListingsCount")
+
+        sharedPreferences.edit().putString(DevViewModel.SYNC_RUNS_STATE_KEY, currentLogs).apply()
+    }
+
+    private fun logError(e: Exception) {
+        val currentLogs = (sharedPreferences.getString(DevViewModel.SYNC_RUNS_STATE_KEY, "") ?: "")
+            .plus("\n Sync ran at " + "${Calendar.getInstance().time.toReadableString(DATE_FORMAT_1)}, " +
+                    "Exception: ${e.message}")
+
+        sharedPreferences.edit().putString(DevViewModel.SYNC_RUNS_STATE_KEY, currentLogs).apply()
     }
 
     companion object {

@@ -8,11 +8,13 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.ros.stjohnshhunt.data.Converters
 import com.ros.stjohnshhunt.data.House
+import com.ros.stjohnshhunt.data.SearchConfig
 
-@Database(entities = [House::class], version = 1, exportSchema = false)
+@Database(entities = [House::class, SearchConfig::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun houseDao(): HouseDao
+    abstract fun searchConfigDao(): SearchConfigDao
 
     companion object {
 
