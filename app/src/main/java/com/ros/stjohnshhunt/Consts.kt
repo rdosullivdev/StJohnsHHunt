@@ -1,6 +1,5 @@
 package com.ros.stjohnshhunt
 
-const val MOCK_ON = true
 const val REFRESH_INTERVAL_HOURS = 3
 const val REFRESH_INTERVAL_MINS = 16
 

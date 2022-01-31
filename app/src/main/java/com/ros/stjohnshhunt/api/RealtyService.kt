@@ -1,7 +1,7 @@
 package com.ros.stjohnshhunt.api
 
 import android.content.Context
-import com.ros.stjohnshhunt.MOCK_ON
+import com.ros.stjohnshhunt.BuildConfig
 import com.ros.stjohnshhunt.api.interceptors.MockInterceptor
 import com.ros.stjohnshhunt.data.ListResidentialResponse
 import okhttp3.Interceptor
@@ -47,9 +47,9 @@ interface RealtyService {
 
             val client = OkHttpClient.Builder().apply {
                 addInterceptor(logger)
-                if (MOCK_ON) {
+                if (BuildConfig.APPLICATION_ID.endsWith(".mock")) {
                     addInterceptor(MockInterceptor(appContext))
-                } else {
+                } else if (BuildConfig.APPLICATION_ID.endsWith(".live")) {
                     addInterceptor(
                         Interceptor { chain ->
                             val builder = chain.request().newBuilder()

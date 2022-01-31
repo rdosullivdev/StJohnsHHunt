@@ -12,7 +12,7 @@ android {
         dataBinding true
     }
     defaultConfig {
-        applicationId "com.ros.stjohnshhunt"
+        applicationId "com.ros.stjohnshhunt.core"
         minSdk 24
         targetSdk 30
         versionCode 1
@@ -25,6 +25,21 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "main"
+    productFlavors {
+        live {
+            dimension "main"
+            applicationId 'com.ros.stjohnshhunt.live'
+            versionCode 1
+            versionName "0.8"
+        }
+        mock {
+            dimension "main"
+            applicationId 'com.ros.stjohnshhunt.mock'
+            versionCode 1
+            versionName "0.8"
         }
     }
     compileOptions {
